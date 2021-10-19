@@ -1,0 +1,55 @@
+<div class="wrapper">
+  <div id="welcome" class="container">
+    <div class="title">
+      <h2>{{ title }}</h2>
+    </div>
+  </div>
+  <div id="three-column" class="container">
+    <div *ngIf="successMsg">
+      <h2>{{ successMsg }}</h2>
+    </div>
+    <div id="tbox">
+      <div class="content">
+        <mat-form-field appearance="fill">
+          <mat-label>Select a room</mat-label>
+          <mat-select #roomSelect (selectionChange)="changeRoom($event.value)">
+            <mat-option *ngFor="let room of rooms" [value]="room._id">
+              {{room.name}}&#8212;{{room.roomId}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="isRoomSelected">
+          <div id="card-content">
+            <mat-card-content>
+              <p>Name: {{ selectedRoom.name }}</p>
+              <p>Number: {{ selectedRoom.roomId }}</p>
+              <p>Description: {{ selectedRoom.description }}</p>
+              <div *ngIf="selectedRoom.isBooked; else notBooked">
+                <p>Booked: Yes</p>
+                <p>Booked From: {{ selectedRoom.booked_from }}</p>
+                <p>Booked To: {{ selectedRoom.booked_to }}</p>
+              </div>
+            </mat-card-content>
+            <ng-template #notBooked>
+              <form [formGroup]="dateRangeForm" (ngSubmit)="bookRoom(selectedRoom._id)">
+                <mat-form-field>
+                  <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" required formControlName="fromDate">
+                    <input matEndDate placeholder="End date" required formControlName="toDate">
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                  <mat-error *ngIf="dateRangeForm.controls.fromDate.errors?.required">Start Date is required</mat-error>
+                  <mat-error *ngIf="dateRangeForm.controls.fromDate.hasError('matStartDateInvalid')">Start Date must be valid</mat-error>
+                  <mat-error *ngIf="dateRangeForm.controls.toDate.errors?.required">End Date is required</mat-error>
+                  <mat-error *ngIf="dateRangeForm.controls.toDate.hasError('matEndDateInvalid')">End Date must be valid</mat-error>
+                </mat-form-field>
+                <p><button mat-button class="button">Book Room</button></p>
+              </form>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

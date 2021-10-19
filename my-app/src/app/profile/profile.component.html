@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <div id="welcome" class="container">
+    <div class="title">
+      <h2>{{ title }}</h2>
+      <div *ngIf="isAdmin" class="info">
+        <a (click)="redirectTo('admin')" >Admin Panel</a>
+        &nbsp;
+        <a (click)="logout()" >Logout</a>
+      </div>
+      <div *ngIf="!isAdmin" class="info">
+        <a (click)="logout()" >Logout</a>
+      </div>
+    </div>
+  </div>
+  <div id="three-column" class="container">
+    <div *ngIf="successMsg">
+      <h2>{{ successMsg }}</h2>
+    </div>
+    <div id="tbox">
+      <div class="content">
+        <div id="card-content">
+          <p><strong>Name</strong>:&nbsp;{{ user.name }}</p>
+          <p><strong>Email</strong>:&nbsp;{{ user.email }}</p>
+          <p><strong>Role</strong>:&nbsp;{{ userRole }}</p>
+          <!--<p><a mat-button class="button" (click)="logout()" >Logout</a></p>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

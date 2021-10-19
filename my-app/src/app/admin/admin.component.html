@@ -1,0 +1,249 @@
+<div class="wrapper">
+  <div id="welcome" class="container">
+    <div class="title">
+      <h2>{{ title }}</h2>
+      <div class="info">
+        <a (click)="redirectTo('profile')" >Profile</a>
+        &nbsp;
+        <a (click)="logout()" >Logout</a>
+      </div>
+    </div>
+  </div>
+  <div id="three-column" class="container">
+    <div *ngIf="successMsg">
+      <h2>{{ successMsg }}</h2>
+    </div>
+    <div id="tbox">
+      <div class="content">
+        <mat-form-field appearance="fill">
+          <mat-label>Create</mat-label>
+          <mat-select #toCreateSelect (selectionChange)="displayForm($event.value)">
+            <mat-option *ngFor="let create of toCreate" [value]="create">
+              {{create}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="displayEvent">
+          <div id="card-content">
+            <form [formGroup]="createForm" (ngSubmit)="createEvent()">
+              <div>
+                <mat-label>Title</mat-label><br>
+                <input type="text" id="title" name="title" placeholder="Title" required formControlName="title" [ngClass]="{ 'has-error': formControls.title.errors }" />
+                <div *ngIf="formControls.title.errors">
+                  <mat-error *ngIf="formControls.title.errors?.required">Title is required</mat-error>
+                  <mat-error *ngIf="formControls.title.errors?.title">Title must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Description</mat-label><br>
+                <input type="text" id="description" name="description" placeholder="Description" required formControlName="description" [ngClass]="{ 'has-error': formControls.description.errors }" />
+                <div *ngIf="formControls.description.errors">
+                  <mat-error *ngIf="formControls.description.errors?.required">Description is required</mat-error>
+                  <mat-error *ngIf="formControls.description.errors?.description">Description must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Organiser</mat-label><br>
+                <input type="text" id="organiser" name="organiser" placeholder="Organiser" required formControlName="organiser" [ngClass]="{ 'has-error': formControls.organiser.errors }">
+                <div *ngIf="formControls.organiser.errors">
+                  <mat-error *ngIf="formControls.organiser.errors?.required">Organiser is required</mat-error>
+                  <mat-error *ngIf="formControls.organiser.errors?.organiser">Organiser must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Participants</mat-label><br>
+                <input type="text" id="participants" name="participants" placeholder="Participants" required formControlName="participants" [ngClass]="{ 'has-error': formControls.participants.errors }">
+                <div *ngIf="formControls.participants.errors">
+                  <mat-error *ngIf="formControls.participants.errors?.required">Participants is required</mat-error>
+                  <mat-error *ngIf="formControls.participants.errors?.participants">Participants must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <div>
+                  <mat-label>Room</mat-label>
+                  <mat-select formControlName="room" [ngClass]="{ 'has-error': formControls.room.errors }">
+                    <mat-option *ngFor="let eventRoom of rooms" [value]="eventRoom._id">
+                      {{eventRoom.name}}&#8212;{{eventRoom.roomId}}
+                    </mat-option>
+                  </mat-select>
+                  <div *ngIf="formControls.room.errors">
+                    <mat-error *ngIf="formControls.room.errors?.required">Room is required</mat-error>
+                    <mat-error *ngIf="formControls.room.errors?.room">Room must be valid</mat-error>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Date</mat-label><br>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Start date" required formControlName="fromDate" [ngClass]="{ 'has-error': formControls.fromDate.errors }">
+                  <input matEndDate placeholder="End date" required formControlName="toDate" [ngClass]="{ 'has-error': formControls.toDate.errors }">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <div *ngIf="formControls.fromDate.errors">
+                  <mat-error *ngIf="formControls.fromDate.errors?.required">Start Date is required</mat-error>
+                  <mat-error *ngIf="formControls.fromDate.hasError('matStartDateInvalid')">Start Date must be valid</mat-error>
+                </div>
+                <div *ngIf="formControls.toDate.errors">
+                  <mat-error *ngIf="formControls.toDate.errors?.required">End Date is required</mat-error>
+                  <mat-error *ngIf="formControls.toDate.hasError('matEndDateInvalid')">End Date must be valid</mat-error>
+                </div>
+              </div>
+              <p><button mat-button class="button">Create</button></p>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="displayInternationalOffice">
+          <div id="card-content">
+            <form [formGroup]="createForm" (ngSubmit)="createInternationalOffice()">
+              <div>
+                <mat-label>Title</mat-label><br>
+                <input type="text" id="title" name="title" placeholder="Title" required formControlName="title" [ngClass]="{ 'has-error': formControls.title.errors }" />
+                <div *ngIf="formControls.title.errors">
+                  <mat-error *ngIf="formControls.title.errors?.required">Title is required</mat-error>
+                  <mat-error *ngIf="formControls.title.errors?.title">Title must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Description</mat-label><br>
+                <input type="text" id="description" name="description" placeholder="Description" required formControlName="description" [ngClass]="{ 'has-error': formControls.description.errors }" />
+                <div *ngIf="formControls.description.errors">
+                  <mat-error *ngIf="formControls.description.errors?.required">Description is required</mat-error>
+                  <mat-error *ngIf="formControls.description.errors?.description">Description must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Link</mat-label><br>
+                <input type="url" id="link" name="link" placeholder="Link" required formControlName="link" [ngClass]="{ 'has-error': formControls.link.errors }">
+                <div *ngIf="formControls.link.errors">
+                  <mat-error *ngIf="formControls.link.errors?.required">Link is required</mat-error>
+                  <mat-error *ngIf="formControls.link.errors?.link">Link must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <p><button mat-button class="button">Create</button></p>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="displayNews">
+          <div id="card-content">
+            <form [formGroup]="createForm" (ngSubmit)="createNews()">
+              <div>
+                <mat-label>Title</mat-label><br>
+                <input type="text" id="title" name="title" placeholder="Title" required formControlName="title" [ngClass]="{ 'has-error': formControls.title.errors }" />
+                <div *ngIf="formControls.title.errors">
+                  <mat-error *ngIf="formControls.title.errors?.required">Title is required</mat-error>
+                  <mat-error *ngIf="formControls.title.errors?.title">Title must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Description</mat-label><br>
+                <input type="text" id="description" name="description" placeholder="Description" required formControlName="description" [ngClass]="{ 'has-error': formControls.description.errors }" />
+                <div *ngIf="formControls.description.errors">
+                  <mat-error *ngIf="formControls.description.errors?.required">Description is required</mat-error>
+                  <mat-error *ngIf="formControls.description.errors?.description">Description must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Link</mat-label><br>
+                <input type="url" id="link" name="link" placeholder="Link" required formControlName="link" [ngClass]="{ 'has-error': formControls.link.errors }">
+                <div *ngIf="formControls.link.errors">
+                  <mat-error *ngIf="formControls.link.errors?.required">Link is required</mat-error>
+                  <mat-error *ngIf="formControls.link.errors?.link">Link must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <p><button mat-button class="button">Create</button></p>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="displayRoom">
+          <div id="card-content">
+            <form [formGroup]="createForm" (ngSubmit)="createRoom()">
+              <div>
+                <mat-label>Room Id</mat-label><br>
+                <input type="number" id="roomId" name="roomId" placeholder="Room Id" min="0" required formControlName="roomId" [ngClass]="{ 'has-error': formControls.roomId.errors }" />
+                <div *ngIf="formControls.roomId.errors">
+                  <mat-error *ngIf="formControls.roomId.errors?.required">Room Id is required</mat-error>
+                  <mat-error *ngIf="formControls.roomId.errors?.title">Room Id must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Name</mat-label><br>
+                <input type="text" id="name" name="name" placeholder="Name" required formControlName="name" [ngClass]="{ 'has-error': formControls.name.errors }" />
+                <div *ngIf="formControls.name.errors">
+                  <mat-error *ngIf="formControls.name.errors?.required">Name is required</mat-error>
+                  <mat-error *ngIf="formControls.name.errors?.name">Name must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Description</mat-label><br>
+                <input type="text" id="description" name="description" placeholder="Description" required formControlName="description" [ngClass]="{ 'has-error': formControls.description.errors }" />
+                <div *ngIf="formControls.description.errors">
+                  <mat-error *ngIf="formControls.description.errors?.required">Description is required</mat-error>
+                  <mat-error *ngIf="formControls.description.errors?.description">Description must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <p><button mat-button class="button">Create</button></p>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="displayUser">
+          <div id="card-content">
+            <form [formGroup]="createForm" (ngSubmit)="createUser()">
+              <div>
+                <mat-label>Name</mat-label><br>
+                <input type="text" id="name" name="name" placeholder="Name" required formControlName="name" [ngClass]="{ 'has-error': formControls.name.errors }" />
+                <div *ngIf="formControls.name.errors">
+                  <mat-error *ngIf="formControls.name.errors?.required">Name is required</mat-error>
+                  <mat-error *ngIf="formControls.name.errors?.name">Name must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Email</mat-label><br>
+                <input type="email" id="email" name="email" placeholder="Email" required formControlName="email" [ngClass]="{ 'has-error': formControls.email.errors }" />
+                <div *ngIf="formControls.email.errors">
+                  <mat-error *ngIf="formControls.email.errors?.required">Email is required</mat-error>
+                  <mat-error *ngIf="formControls.email.errors?.email">Email must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Password</mat-label><br>
+                <input type="password" id="password" name="password" placeholder="Password" required formControlName="password" [ngClass]="{ 'has-error': formControls.password.errors }">
+                <div *ngIf="formControls.password.errors">
+                  <mat-error *ngIf="formControls.password.errors?.required">Password is required</mat-error>
+                  <mat-error *ngIf="formControls.password.errors?.password">Password must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <div>
+                <mat-label>Confirm Password</mat-label><br>
+                <input type="password" id="password2" name="password2" placeholder="Confirm Password" required formControlName="password2" [ngClass]="{ 'has-error': formControls.password2.errors }">
+                <div *ngIf="formControls.password2.errors">
+                  <mat-error *ngIf="formControls.password2.errors?.required">Confirm Password is required</mat-error>
+                  <mat-error *ngIf="formControls.password2.errors?.password2">Confirm Password must be valid</mat-error>
+                </div>
+              </div>
+              <br>
+              <p><button mat-button class="button">Create</button></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

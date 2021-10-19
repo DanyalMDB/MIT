@@ -1,0 +1,66 @@
+<div class="wrapper">
+  <div id="welcome" class="container">
+    <div class="title">
+      <h2>{{ title }}</h2>
+    </div>
+  </div>
+  <div id="three-column" class="container">
+    <div *ngIf="successMsg">
+      <h2>{{ successMsg }}</h2>
+    </div>
+    <div id="tbox">
+      <div class="content">
+        <div id="card-content">
+          <form [formGroup]="appointmentForm" (ngSubmit)="bookAppointment()">
+            <div>
+              <div>
+                <mat-label>Name</mat-label><br>
+                <input type="text" id="name" name="name" placeholder="Your Name" required formControlName="name" [ngClass]="{ 'has-error': formControls.name.errors }" />
+                <mat-error *ngIf="formControls.name.errors?.required">Name is required</mat-error>
+                <mat-error *ngIf="formControls.name.errors?.name">Name must be valid</mat-error>
+              </div>
+            </div>
+            <br>
+            <div>
+              <div>
+                <mat-label>Email</mat-label><br>
+                <input type="email" id="email" name="email" placeholder="Your Email" required formControlName="email" [ngClass]="{ 'has-error': formControls.email.errors }" />
+                <mat-error *ngIf="formControls.email.errors?.required">Email is required</mat-error>
+                <mat-error *ngIf="formControls.email.errors?.email">Email must be valid</mat-error>
+              </div>
+            </div>
+            <br>
+            <div>
+              <mat-label>Purpose</mat-label><br>
+              <input type="text" id="description" name="description" placeholder="Your Purpose" required formControlName="description" [ngClass]="{ 'has-error': formControls.description.errors }" />
+              <div *ngIf="formControls.description.errors">
+                <mat-error *ngIf="formControls.description.errors?.required">Purpose is required</mat-error>
+                <mat-error *ngIf="formControls.description.errors?.email">Purpose must be valid</mat-error>
+              </div>
+            </div>
+            <br>
+            <div>
+              <mat-label>Slot</mat-label><br>
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date" required formControlName="fromDate">
+                <input matEndDate placeholder="End date" required formControlName="toDate">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+              <div *ngIf="formControls.fromDate.errors">
+                <mat-error *ngIf="formControls.fromDate.errors?.required">Start Date is required</mat-error>
+                <mat-error *ngIf="formControls.fromDate.hasError('matStartDateInvalid')">Start Date must be valid</mat-error>
+              </div>
+              <div *ngIf="formControls.toDate.errors">
+                <mat-error *ngIf="formControls.toDate.errors?.required">End Date is required</mat-error>
+                <mat-error *ngIf="formControls.toDate.hasError('matEndDateInvalid')">End Date must be valid</mat-error>
+              </div>
+            </div>
+            <p><button mat-button class="button">Book</button></p>
+          </form>
+          <!--<p><button mat-button class="button" (click)="register()">Register</button></p>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

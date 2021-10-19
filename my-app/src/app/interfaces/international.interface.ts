@@ -1,0 +1,14 @@
+export interface International {
+  _id: string
+  title: string
+  description: string
+  link: string
+  created_at: Date
+  updated_at: Date
+}
+
+export interface CreateInternational {
+  title: string
+  description: string
+  link: string
+}

@@ -1,0 +1,40 @@
+<div class="wrapper">
+  <div id="welcome" class="container">
+    <div class="title">
+      <h2>{{ title }}</h2>
+    </div>
+  </div>
+  <div id="three-column" class="container">
+    <div *ngIf="successMsg">
+      <h2>{{ successMsg }}</h2>
+    </div>
+    <div id="tbox">
+      <div class="content">
+        <div id="card-content">
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div>
+              <mat-label>Email</mat-label><br>
+              <input type="email" id="email" name="email" placeholder="Email" required formControlName="email" [ngClass]="{ 'has-error': formControls.email.errors }" />
+              <div *ngIf="formControls.email.errors">
+                <mat-error *ngIf="formControls.email.errors?.required">Email is required</mat-error>
+                <mat-error *ngIf="formControls.email.errors?.email">Email must be valid</mat-error>
+              </div>
+            </div>
+            <br>
+            <div>
+              <mat-label>Password</mat-label><br>
+              <input type="password" id="password" name="password" placeholder="Password" required formControlName="password" [ngClass]="{ 'has-error': formControls.password.errors }">
+              <div *ngIf="formControls.password.errors">
+                <mat-error *ngIf="formControls.password.errors?.required">Password is required</mat-error>
+                <mat-error *ngIf="formControls.password.errors?.password">Password must be valid</mat-error>
+              </div>
+            </div>
+            <br>
+            <p><button mat-button class="button">Login</button></p>
+          </form>
+          <p><button mat-button class="button" (click)="register()">Register</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="wrapper">
+  <div id="welcome" class="container">
+    <div class="title">
+      <h2>{{ title }}</h2>
+    </div>
+    <div id="three-column" class="container">
+      <div *ngIf="successMsg">
+        <h2>{{ successMsg }}</h2>
+      </div>
+      <div *ngIf="isEvents && !isEvent; else elseBlock">
+        <div *ngFor="let event of events" >
+          <div id="tbox">
+            <div class="content">
+              <mat-card>
+                  <img mat-card-image class="img-event" src="/assets/image.jpeg">
+                  <mat-card-header>
+                    <div id="card-title">
+                      <strong><p>{{ (event.title.length> 30)? (event.title | slice:0:30)+'...':(event.title) }}</p></strong>
+                    </div>
+                    <div id="card-footer">
+                      <p style="margin-bottom: 0px;">&nbsp;&#8226;&nbsp;{{ event.event_from | date: 'dd.MM.yyyy, HH:MM a'}} &ndash; {{ event.event_to | date: 'yyyy-MM-dd HH:MM a'}}</p>
+                      <p style="margin-bottom: 0px;">&nbsp;&#8226;&nbsp;{{ event.room.name }}&#8212;{{ event.room.roomId }}</p>
+                    </div>
+                  </mat-card-header>
+                  <div id="card-content">
+                    <mat-card-content>
+                      <p>{{ (event.description.length> 35)? (event.description | slice:0:35)+'...':(event.description) }}</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <p><a mat-button class="button" (click)="gotoDetail(event._id)" >Details</a></p>
+                  </mat-card-actions>
+                  </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseBlock>
+      <div id="else-block">
+        <mat-card>
+          <div class="content">
+            <img mat-card-image class="img-event" src="/assets/image.jpeg"><br><br><br>
+            <div id="card-title">
+              <mat-card-header>
+                <strong><p>{{ event.title }}</p></strong>
+              </mat-card-header>
+            </div>
+            <mat-card-content>
+              <div id="card-footer">
+                <p>&nbsp;&#8226;&nbsp;From: {{ event.event_from | date: 'dd.MM.yyyy, HH:MM a'}}</p>
+                <p>&nbsp;&#8226;&nbsp;To:   {{ event.event_to | date: 'yyyy-MM-dd HH:MM a'}}</p>
+                <p>&nbsp;&#8226;&nbsp;Room: {{ event.room.name }}&#8212;{{ event.room.roomId }}</p>
+                <p>&nbsp;&#8226;&nbsp;Organizer: {{ event.organiser }}</p>
+                <p>&nbsp;&#8226;&nbsp;Participants: {{ event.participants }}</p>
+              </div>
+              <div id="card-content">
+                <p>{{ event.description }}</p>
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <div id="card-action">
+                <p><a mat-button class="button" (click)="ngOnInit()" >Back</a></p>
+              </div>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+      </div>
+    </ng-template>
+  </div>
+</div>
