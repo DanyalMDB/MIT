@@ -5,7 +5,7 @@
 # Team members
 | Name | Matriculation Number |
 | ------ | ------ |
-| Zohaib Masood | 00775592 |
+
 | M. Danyal Butt | 00772823 |
 
 Deggendorf Institute of Technology
@@ -58,19 +58,4 @@ User accounts can be added in the following steps.
 
 
 
-| Task | User |
-| ------ | ------ |
-| News Api | Zohaib Masood |
-| Event Api | Zohaib Masood |
-| User API | Zohaib Masood |
-| Room API | Zohaib Masood |
-| InternationalOffice API | Zohaib Masood |
-| Appointment API | M. Danyal Butt |
-| User Authentication | M. Danyal Butt |
-| News Component | M. Danyal Butt |
-| Event Component | M. Danyal Butt |
-| User Component | M. Danyal Butt |
-| Room Component | M. Danyal Butt |
-| InternationalOffice Component | M. Danyal Butt |
-| Appointment Component | Zohaib Masood |
 
